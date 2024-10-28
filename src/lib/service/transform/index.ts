@@ -1,4 +1,4 @@
-type ISpaceEntry<V extends number> =
+export type ISpaceEntry<V extends number> =
   | V
   | [V]
   | [V, V]
@@ -12,16 +12,22 @@ type ISpaceEntry<V extends number> =
 
 type ISpaceOutput<V extends number> = { top: V; right: V; bottom: V; left: V };
 
-type IPoint2dEntry<V extends number> = V | [V] | [V, V] | { x: V; y: V } | `${V}` | `${V},${V}`;
+export type IPoint2dEntry<V extends number> =
+  | V
+  | [V]
+  | [V, V]
+  | { x: V; y: V }
+  | `${V}`
+  | `${V},${V}`;
 type IPoint2dOutput<V extends number> = { x: V; y: V };
 
-type IPointExcel = `${string}${number}`;
+export type IPointExcel = `${string}${number}`;
 export type IRangeExcel =
   | `${IPointExcel}:${IPointExcel}`
   | `${string}:${string}`
   | `${number}:${number}`;
 
-type IPoint3dEntry<V extends number> =
+export type IPoint3dEntry<V extends number> =
   | V
   | [V]
   | [V, V, V]
