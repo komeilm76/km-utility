@@ -153,7 +153,7 @@ const makeSize = <
 >(
   value: VALUE
 ) => {
-  let output: ISizeEntry<number> = {
+  let output: ISizeOutput<number> = {
     width: NaN,
     height: NaN,
   };
