@@ -12,6 +12,16 @@ export type ISpaceEntry<V extends number> =
 
 type ISpaceOutput<V extends number> = { top: V; right: V; bottom: V; left: V };
 
+export type ISizeEntry<V extends number> =
+  | V
+  | [V]
+  | [V, V]
+  | { width: V; height: V }
+  | `${V}`
+  | `${V},${V}`;
+
+type ISizeOutput<V extends number> = { width: V; height: V };
+
 export type IPoint2dEntry<V extends number> =
   | V
   | [V]
@@ -129,6 +139,56 @@ const makeSpace = <
   return output as OUTPUT;
 };
 
+// space
+const makeSize = <
+  NUM extends number = number,
+  VALUE extends ISizeEntry<NUM> = ISizeEntry<NUM>,
+  OUTPUT extends {
+    width: NUM;
+    height: NUM;
+  } = {
+    width: NUM;
+    height: NUM;
+  }
+>(
+  value: VALUE
+) => {
+  let output: ISizeEntry<number> = {
+    width: NaN,
+    height: NaN,
+  };
+  if (typeof value == 'number') {
+    output.width = value;
+    output.height = value;
+  }
+  if (typeof value == 'object') {
+    if (Array.isArray(value)) {
+      if (value.length == 1) {
+        output.width = value[0];
+        output.height = value[0];
+      }
+      if (value.length == 2) {
+        output.width = value[0];
+        output.height = value[1];
+      }
+    } else {
+      output.width = value.width;
+      output.height = value.height;
+    }
+  }
+  if (typeof value == 'string') {
+    let splitedValue = value.split(',').map((item) => Number(item));
+    if (splitedValue.length == 1 && Array.isArray(splitedValue)) {
+      output.width = splitedValue[0];
+      output.height = splitedValue[0];
+    }
+    if (splitedValue.length == 2 && Array.isArray(splitedValue)) {
+      output.width = splitedValue[0];
+      output.height = splitedValue[1];
+    }
+  }
+  return output as OUTPUT;
+};
 // 2d point
 const make2dPoint = <
   NUM extends number = number,
@@ -365,6 +425,7 @@ const swapUnit = (entryAmount: IAmount, outputUnit: IUnit) => {
 
 export default {
   makeSpace,
+  makeSize,
   make2dPoint,
   make3dPoint,
   make2dPointFromExcelPoint,
