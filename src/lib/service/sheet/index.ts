@@ -119,19 +119,18 @@ const makeRange = <SHEET extends any[][]>(
 //   };
 // };
 
-const toChartOptions = <SHEET extends any[][]>(
-  sheet: SHEET,
-  options: {
-    dataRange: IRangeExcel;
-    xRange: IRangeExcel;
-    yRange: IRangeExcel;
-    chartType: 'line' | 'bar';
-    mapXItemFunc?: (v: any) => any;
-    mapXFunc?: (v: any[]) => any;
-    mapYItemFunc?: (v: any) => any;
-    mapYFunc?: (v: any[]) => any;
-  }
-) => {
+export type IChartOptions = {
+  dataRange: IRangeExcel;
+  xRange: IRangeExcel;
+  yRange: IRangeExcel;
+  chartType: 'line' | 'bar';
+  mapXItemFunc?: (v: any) => any;
+  mapXFunc?: (v: any[]) => any;
+  mapYItemFunc?: (v: any) => any;
+  mapYFunc?: (v: any[]) => any;
+};
+
+const toChartOptions = <SHEET extends any[][]>(sheet: SHEET, options: IChartOptions) => {
   const standardDataRange = transform.make2dRangeFromExcelRange(options.dataRange);
   const standardXRange = transform.make2dRangeFromExcelRange(options.xRange);
   const standardYRange = transform.make2dRangeFromExcelRange(options.yRange);

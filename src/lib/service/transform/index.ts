@@ -139,7 +139,7 @@ const makeSpace = <
   return output as OUTPUT;
 };
 
-// space
+// size
 const makeSize = <
   NUM extends number = number,
   VALUE extends ISizeEntry<NUM> = ISizeEntry<NUM>,
